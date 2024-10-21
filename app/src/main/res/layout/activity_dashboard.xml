@@ -12,16 +12,8 @@
     <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp">
-    
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/start"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:padding="5dp"
-                android:background="@color/secondary"/>
+            android:padding="20dp"
+        tools:ignore="UselessLeaf">
     
         </RelativeLayout>
 
@@ -66,6 +58,7 @@
                     <EditText
                         android:layout_width="300dp"
                         android:layout_height="40dp"
+                        android:autofillHints="search here..."
                         android:background="@drawable/rounded_corners"
                         android:hint="@string/search_text"
                         android:fontFamily="@font/playfair_display"
@@ -77,9 +70,9 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:src="@drawable/search_icon"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="15dp"/>
+                        android:layout_marginEnd="15dp"/>
 
                 </RelativeLayout>
 
@@ -90,7 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
                 android:background="@color/secondary">
 
                 <LinearLayout
@@ -106,9 +99,9 @@
                         android:layout_height="wrap_content"
                         android:text="nothing yet"
                         android:fontFamily="@font/playfair_display"
-                        android:textSize="25dp"
+                        android:textSize="25sp"
                         android:layout_marginTop="50dp"
-                        android:layout_marginLeft="10dp"/>
+                        android:layout_marginStart="10dp"/>
 
 
                 </LinearLayout>
@@ -117,7 +110,7 @@
                     android:id="@+id/features_recycler"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
-                    android:layout_toRightOf="@id/featured_background"
+                    android:layout_toEndOf="@id/featured_background"
                     android:background="@color/background" />
 
             </RelativeLayout>
@@ -131,7 +124,8 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    tools:ignore="UselessParent">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -146,13 +140,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="view all"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:layout_marginTop="40dp">
 
                         <include
                             layout="@layout/popular_card_design"/>
@@ -161,7 +157,7 @@
 
                 </RelativeLayout>
 
-<!-- put latest or most popular here -->
+<!-- put most popular here -->
 
 
             </LinearLayout>
@@ -189,7 +185,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:text="view all" />
 
@@ -198,7 +194,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/categories_recycler"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp" />
+                    android:layout_height="200dp" />
 
             </LinearLayout>
 
