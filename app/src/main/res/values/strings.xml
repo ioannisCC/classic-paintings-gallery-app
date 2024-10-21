@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">timeless brush</string>
+    <string name="timeless_brush_start_screen">timeless brush</string>
+    <string name="logo_image_description">LOGO IMAGE</string>
+    <string name="search_text">search here…</string>
+</resources>
