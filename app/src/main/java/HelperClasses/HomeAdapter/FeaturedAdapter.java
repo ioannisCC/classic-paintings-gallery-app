@@ -1,35 +1,41 @@
 package HelperClasses.HomeAdapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ioannis.unipi.example.assignment1.ArtDetailActivity;
+import com.ioannis.unipi.example.assignment1.Artwork;
 import com.ioannis.unipi.example.assignment1.R;
-
 import java.util.ArrayList;
 
 // bridge between values and design
 public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.FeaturedViewHolder> {
 
-    ArrayList<FeaturedHelperClass> featuredArtworks;
+    ArrayList<Artwork> artworks;
+    Context context;
+    int type = 0;
 
-    public FeaturedAdapter(ArrayList<FeaturedHelperClass> featuredArtworks) {
-        this.featuredArtworks = featuredArtworks;
+    public FeaturedAdapter(ArrayList<Artwork> artworks, Context context) {
+        this.artworks = artworks;
+        this.context = context;
     }
 
-    public ArrayList<FeaturedHelperClass> getFeaturedArtworks() {
-        return featuredArtworks;
+    public ArrayList<Artwork> getArtworks() {
+        return artworks;
     }
 
-    public void setFeaturedArtworks(ArrayList<FeaturedHelperClass> featuredArtworks) {
-        this.featuredArtworks = featuredArtworks;
+    public void setArtworks(ArrayList<Artwork> artworks) {
+        this.artworks = artworks;
     }
 
+    // put the card on the recycler view
     @NonNull
     @Override
     public FeaturedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -38,22 +44,36 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.Featur
         return new FeaturedViewHolder(view);
     }
 
+    // fill the contents of the card
     @Override
     public void onBindViewHolder(@NonNull FeaturedViewHolder holder, int position) {
 
-        FeaturedHelperClass featuredHelperClass = featuredArtworks.get(position);
+        Artwork artwork = artworks.get(position);
 
-        holder.image.setImageResource(featuredHelperClass.getImage());
-        holder.title.setText(featuredHelperClass.getTitle());
-        holder.description.setText(featuredHelperClass.getDescription());
+        holder.image.setImageResource(artwork.getImageResId());
+        holder.title.setText(artwork.getTitle());
+        String text = artwork.getArtist() + ", " + artwork.getYear();
+        holder.description.setText(text);
 
+        // add click listener for each card
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // start the new activity or handle the click
+                Intent intent = new Intent(context, ArtDetailActivity.class);
+                intent.putExtra("index", position);
+                intent.putExtra("type",type);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        return featuredArtworks.size();
+        return artworks.size();
     }
 
+    // associate the xml layout with the code
     public static class FeaturedViewHolder extends RecyclerView.ViewHolder {
 
         ImageView image;
@@ -65,7 +85,7 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.Featur
             // hooks
             image = itemView.findViewById(R.id.featured_image);
             title = itemView.findViewById(R.id.featured_title);
-            description = itemView.findViewById(R.id.categories_description);
+            description = itemView.findViewById(R.id.featured_description);
 
         }
     }

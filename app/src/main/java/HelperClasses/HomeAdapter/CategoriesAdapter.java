@@ -13,6 +13,7 @@ import com.ioannis.unipi.example.assignment1.R;
 
 import java.util.ArrayList;
 
+
 // bridge between values and design
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.CategoriesViewHolder> {
 
@@ -69,5 +70,4 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.Ca
 
         }
     }
-
 }

@@ -18,14 +18,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/playfair_display"
-            android:text="Rennaisance"
+            android:text="@string/category"
             android:textSize="20sp" />
 
         <ImageView
             android:id="@+id/category_image"
             android:layout_width="110dp"
             android:layout_height="110dp"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:src="@drawable/start" />
 
@@ -34,10 +34,10 @@
             android:layout_width="104dp"
             android:layout_height="97dp"
             android:layout_marginTop="30dp"
-            android:layout_alignParentRight="false"
+            android:layout_alignParentEnd="false"
             android:layout_alignParentTop="false"
             android:fontFamily="@font/playfair_display"
-            android:text="blah blah bl;ah bkaoidhiufgs vfdaysgv sdhjafgv ksdhfgv lsdfjhgv" />
+            android:text="@string/description"/>
 
     </RelativeLayout>
 
