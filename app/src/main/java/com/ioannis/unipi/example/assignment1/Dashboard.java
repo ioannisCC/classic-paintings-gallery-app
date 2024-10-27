@@ -52,9 +52,10 @@ public class Dashboard extends AppCompatActivity {
         });
 
         // initialize the MediaPlayer
-//        mediaPlayer = MediaPlayer.create(this, R.raw.classical_music); // Replace with your actual file name
-//        // start playing music
-//        mediaPlayer.start();
+        mediaPlayer = MediaPlayer.create(this, R.raw.beethoven_moonlight_sonata);
+        mediaPlayer.setLooping(true);
+        // start playing music
+        mediaPlayer.start();
 
         sharedPreferences = getSharedPreferences(getString(R.string.paintings_preferences), MODE_PRIVATE);
 
@@ -73,7 +74,6 @@ public class Dashboard extends AppCompatActivity {
         // find the included layout by its ID
         cardsContainer = findViewById(R.id.cards_container);
 
-        // Load your cards dynamically
         loadCards();
 
     }
@@ -81,7 +81,7 @@ public class Dashboard extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        // Release the MediaPlayer when done
+        // release the MediaPlayer
         if (mediaPlayer != null) {
             mediaPlayer.release();
             mediaPlayer = null;
@@ -90,18 +90,18 @@ public class Dashboard extends AppCompatActivity {
 
     private void toggleSound() {
         if (isSoundOn) {
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.clear(); // Clear all SharedPreferences
-            editor.apply(); // Apply changes
-            Toast.makeText(Dashboard.this, "Preferences Cleared",
-                    Toast.LENGTH_SHORT).show();
-            mediaPlayer.pause(); // Stop playing
+//            SharedPreferences.Editor editor = sharedPreferences.edit();
+//            editor.clear(); // Clear all SharedPreferences
+//            editor.apply(); // Apply changes
+//            Toast.makeText(Dashboard.this, "Preferences Cleared",
+//                    Toast.LENGTH_SHORT).show();
+            mediaPlayer.pause();
             soundToggleIcon.setImageResource(R.drawable.sound_on);
         } else {
-            mediaPlayer.start(); // Resume playing
+            mediaPlayer.start();
             soundToggleIcon.setImageResource(R.drawable.sound_on);
         }
-        isSoundOn = !isSoundOn; // Toggle the state
+        isSoundOn = !isSoundOn; // toggle the state
     }
 
     private void featuredRecycler() {
