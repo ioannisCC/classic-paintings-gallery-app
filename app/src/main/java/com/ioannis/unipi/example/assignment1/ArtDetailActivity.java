@@ -11,11 +11,14 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.activity.OnBackPressedCallback;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import jp.wasabeef.glide.transformations.BlurTransformation;
 
 public class ArtDetailActivity extends AppCompatActivity {
 
     SharedPreferences sharedPreferences;
-    ImageView artworkImage;
+    ImageView artworkImage, backgroundImage;
     TextView artworkTitle, artworkDescription;
     Animation topAnimation, bottomAnimation, scaleInAnimation, scaleOutAnimation;
 
@@ -35,6 +38,7 @@ public class ArtDetailActivity extends AppCompatActivity {
         artworkImage = findViewById(R.id.artworkImageDetail);
         artworkTitle = findViewById(R.id.artworkTitleDetail);
         artworkDescription = findViewById(R.id.artworkDescriptionDetail);
+        backgroundImage = findViewById(R.id.backgroundImage);
 
         int artworkIndex = getIntent().getIntExtra("index", -1);
         int artworkType = getIntent().getIntExtra("type", -1);
@@ -90,6 +94,9 @@ public class ArtDetailActivity extends AppCompatActivity {
             artworkTitle.setText(title);
             artworkDescription.setText(description);
             artworkImage.setImageResource(imageResId);
+            Glide.with(this).load(imageResId)
+                    .apply(RequestOptions.bitmapTransform(new BlurTransformation(10, 30)))
+                    .into(backgroundImage);
         }
 
         // start screen animations
