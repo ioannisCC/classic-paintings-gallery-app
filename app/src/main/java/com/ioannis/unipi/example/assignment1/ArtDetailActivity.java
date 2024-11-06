@@ -13,12 +13,16 @@ import androidx.activity.OnBackPressedCallback;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+
+import HelperClasses.HomeAdapter.Artwork;
+import HelperClasses.HomeAdapter.ArtworksDatabase;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 
 public class ArtDetailActivity extends AppCompatActivity {
 
-    SharedPreferences sharedPreferences;
-    ImageView artworkImage, backgroundImage;
+//    SharedPreferences sharedPreferences;
+    private ArtworksDatabase artworksDatabase;
+    ImageView artworkImage, backgroundImage, glassBackground;
     TextView artworkTitle, artworkDescription;
     Animation topAnimation, bottomAnimation, scaleInAnimation, scaleOutAnimation;
 
@@ -32,70 +36,78 @@ public class ArtDetailActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_art_detail);
 
-        sharedPreferences = getSharedPreferences(getString(R.string.paintings_preferences), MODE_PRIVATE);;
+//        sharedPreferences = getSharedPreferences(getString(R.string.paintings_preferences), MODE_PRIVATE);
+
+        // database
+        artworksDatabase = ArtworksDatabase.getInstance(this);
 
         // hooks
         artworkImage = findViewById(R.id.artworkImageDetail);
         artworkTitle = findViewById(R.id.artworkTitleDetail);
         artworkDescription = findViewById(R.id.artworkDescriptionDetail);
         backgroundImage = findViewById(R.id.backgroundImage);
+//        glassBackground = findViewById(R.id.glassBackground); // to do
 
         int artworkIndex = getIntent().getIntExtra("index", -1);
         int artworkType = getIntent().getIntExtra("type", -1);
         // retrieve artwork details using the index
         if (artworkIndex != -1 && artworkType != -1) {
-            if (artworkType == 0) {
-                title = sharedPreferences.getString(getString(R.string.artwork_title_index_) +
-                        getString(R.string.featured_) + artworkIndex, getString(R.string.default_title));
-                description = sharedPreferences.getString(getString(R.string.artwork_description_index_) +
-                        getString(R.string.featured_)+ artworkIndex, getString(R.string.default_description));
-                imageResId = sharedPreferences.getInt(getString(R.string.artwork_image_index_) +
-                        getString(R.string.featured_)+ artworkIndex, R.drawable.start);
-                artist = sharedPreferences.getString(getString(R.string.artwork_artist_index) +
-                        getString(R.string.featured_)+ artworkIndex, getString(R.string.default_artist));
-                year = sharedPreferences.getString(getString(R.string.artwork_year_index) +
-                        getString(R.string.featured_)+ artworkIndex, getString(R.string.default_year));
-                medium = sharedPreferences.getString(getString(R.string.artwork_medium_index) +
-                        getString(R.string.featured_)+ artworkIndex, getString(R.string.default_medium));
-                dimensions = sharedPreferences.getString(getString(R.string.artwork_dimensions_index) +
-                        getString(R.string.featured_)+ artworkIndex, getString(R.string.default_dimensions));
-                art_movement = sharedPreferences.getString(getString(R.string.artwork_art_movement_index) +
-                        getString(R.string.featured_)+ artworkIndex, getString(R.string.default_art_movement));
-                location = sharedPreferences.getString(getString(R.string.artwork_location_index) +
-                        getString(R.string.featured_)+ artworkIndex, getString(R.string.default_location));
 
-            } else if (artworkType == 1) {
-                title = sharedPreferences.getString(getString(R.string.artwork_title_index_) +
-                        getString(R.string.popular_) + artworkIndex, getString(R.string.default_title));
-                description = sharedPreferences.getString(getString(R.string.artwork_description_index_) +
-                        getString(R.string.popular_)+ artworkIndex, getString(R.string.default_description));
-                imageResId = sharedPreferences.getInt(getString(R.string.artwork_image_index_) +
-                        getString(R.string.popular_)+ artworkIndex, R.drawable.start);
-                artist = sharedPreferences.getString(getString(R.string.artwork_artist_index) +
-                        getString(R.string.popular_)+ artworkIndex, getString(R.string.default_artist));
-                year = sharedPreferences.getString(getString(R.string.artwork_year_index) +
-                        getString(R.string.popular_)+ artworkIndex, getString(R.string.default_year));
-                medium = sharedPreferences.getString(getString(R.string.artwork_medium_index) +
-                        getString(R.string.popular_)+ artworkIndex, getString(R.string.default_medium));
-                dimensions = sharedPreferences.getString(getString(R.string.artwork_dimensions_index) +
-                        getString(R.string.popular_)+ artworkIndex, getString(R.string.default_dimensions));
-                art_movement = sharedPreferences.getString(getString(R.string.artwork_art_movement_index) +
-                        getString(R.string.popular_)+ artworkIndex, getString(R.string.default_art_movement));
-                location = sharedPreferences.getString(getString(R.string.artwork_location_index) +
-                        getString(R.string.popular_)+ artworkIndex, getString(R.string.default_location));
-            }
-            else {
-                //to be done
-                title = sharedPreferences.getString("artwork_category_categories_" + artworkIndex, "Default Title");
-                description = sharedPreferences.getString("artwork_category_featured_" + artworkIndex, "Default Description");
-                imageResId = sharedPreferences.getInt("artwork_image_category_" + artworkIndex, R.drawable.start);
-            }
+            Artwork artwork = artworksDatabase.getArtwork(artworkIndex, this);
+
+//            if (artworkType == 0) {
+//                title = sharedPreferences.getString(getString(R.string.artwork_title_index_) +
+//                        getString(R.string.featured_) + artworkIndex, getString(R.string.default_title));
+//                description = sharedPreferences.getString(getString(R.string.artwork_description_index_) +
+//                        getString(R.string.featured_)+ artworkIndex, getString(R.string.default_description));
+//                imageResId = sharedPreferences.getInt(getString(R.string.artwork_image_index_) +
+//                        getString(R.string.featured_)+ artworkIndex, R.drawable.start);
+//                artist = sharedPreferences.getString(getString(R.string.artwork_artist_index) +
+//                        getString(R.string.featured_)+ artworkIndex, getString(R.string.default_artist));
+//                year = sharedPreferences.getString(getString(R.string.artwork_year_index) +
+//                        getString(R.string.featured_)+ artworkIndex, getString(R.string.default_year));
+//                medium = sharedPreferences.getString(getString(R.string.artwork_medium_index) +
+//                        getString(R.string.featured_)+ artworkIndex, getString(R.string.default_medium));
+//                dimensions = sharedPreferences.getString(getString(R.string.artwork_dimensions_index) +
+//                        getString(R.string.featured_)+ artworkIndex, getString(R.string.default_dimensions));
+//                art_movement = sharedPreferences.getString(getString(R.string.artwork_art_movement_index) +
+//                        getString(R.string.featured_)+ artworkIndex, getString(R.string.default_art_movement));
+//                location = sharedPreferences.getString(getString(R.string.artwork_location_index) +
+//                        getString(R.string.featured_)+ artworkIndex, getString(R.string.default_location));
+//
+//            } else if (artworkType == 1) {
+//                title = sharedPreferences.getString(getString(R.string.artwork_title_index_) +
+//                        getString(R.string.popular_) + artworkIndex, getString(R.string.default_title));
+//                description = sharedPreferences.getString(getString(R.string.artwork_description_index_) +
+//                        getString(R.string.popular_)+ artworkIndex, getString(R.string.default_description));
+//                imageResId = sharedPreferences.getInt(getString(R.string.artwork_image_index_) +
+//                        getString(R.string.popular_)+ artworkIndex, R.drawable.start);
+//                artist = sharedPreferences.getString(getString(R.string.artwork_artist_index) +
+//                        getString(R.string.popular_)+ artworkIndex, getString(R.string.default_artist));
+//                year = sharedPreferences.getString(getString(R.string.artwork_year_index) +
+//                        getString(R.string.popular_)+ artworkIndex, getString(R.string.default_year));
+//                medium = sharedPreferences.getString(getString(R.string.artwork_medium_index) +
+//                        getString(R.string.popular_)+ artworkIndex, getString(R.string.default_medium));
+//                dimensions = sharedPreferences.getString(getString(R.string.artwork_dimensions_index) +
+//                        getString(R.string.popular_)+ artworkIndex, getString(R.string.default_dimensions));
+//                art_movement = sharedPreferences.getString(getString(R.string.artwork_art_movement_index) +
+//                        getString(R.string.popular_)+ artworkIndex, getString(R.string.default_art_movement));
+//                location = sharedPreferences.getString(getString(R.string.artwork_location_index) +
+//                        getString(R.string.popular_)+ artworkIndex, getString(R.string.default_location));
+//            }
+//            else {
+//                //to be done
+//                title = sharedPreferences.getString("artwork_category_categories_" + artworkIndex, "Default Title");
+//                description = sharedPreferences.getString("artwork_category_featured_" + artworkIndex, "Default Description");
+//                imageResId = sharedPreferences.getInt("artwork_image_category_" + artworkIndex, R.drawable.start);
+//            }
+
             // Set the retrieved data to the views
-            artworkTitle.setText(title);
-            artworkDescription.setText(description);
-            artworkImage.setImageResource(imageResId);
-            Glide.with(this).load(imageResId)
-                    .apply(RequestOptions.bitmapTransform(new BlurTransformation(10, 30)))
+            artworkTitle.setText(artwork.getTitle());
+            artworkDescription.setText(artwork.getDescription());
+            artworkImage.setImageResource(artwork.getImageResId());
+            Glide.with(this).load(artwork.getImageResId())
+                    .apply(RequestOptions.bitmapTransform(new BlurTransformation(20, 30)))
                     .into(backgroundImage);
         }
 

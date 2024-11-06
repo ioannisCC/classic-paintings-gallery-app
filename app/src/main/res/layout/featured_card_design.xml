@@ -27,14 +27,15 @@
             android:text="@string/title"
             android:textSize="20sp"
             android:fontFamily="@font/playfair_display"
-            />
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/featured_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/description"
-            android:fontFamily="@font/playfair_display"/>
+            android:fontFamily="@font/playfair_display"
+            android:textColor="@color/black"/>
 
 
 

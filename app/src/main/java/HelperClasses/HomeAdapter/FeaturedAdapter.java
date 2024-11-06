@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ioannis.unipi.example.assignment1.ArtDetailActivity;
-import com.ioannis.unipi.example.assignment1.Artwork;
 import com.ioannis.unipi.example.assignment1.R;
 import java.util.ArrayList;
 
@@ -86,7 +85,6 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.Featur
             image = itemView.findViewById(R.id.featured_image);
             title = itemView.findViewById(R.id.featured_title);
             description = itemView.findViewById(R.id.featured_description);
-
         }
     }
 

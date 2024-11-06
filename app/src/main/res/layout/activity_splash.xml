@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:textAlignment="center"
-    tools:context=".MainActivity">
+    tools:context=".SplashActivity">
 
     <ImageView
         android:id="@+id/logo"
@@ -27,6 +27,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/playfair_display"
+        android:textColor="@color/black"
         android:text="@string/timeless_brush"
         android:textAlignment="center"
         android:textSize="50sp"

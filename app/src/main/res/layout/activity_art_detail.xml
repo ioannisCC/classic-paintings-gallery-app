@@ -29,6 +29,7 @@
                 android:textStyle="bold"
                 android:paddingTop="8dp"
                 android:fontFamily="@font/playfair_display"
+                android:textColor="@color/black"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="100dp"/>
 
@@ -55,6 +56,14 @@
                 android:padding="16dp"
                 tools:ignore="UselessParent">
 
+<!--to do-->
+<!--                <ImageView-->
+<!--                    android:id="@+id/glassBackground"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:scaleType="centerCrop"-->
+<!--                    android:background="@drawable/glass" />-->
+
                 <TextView
                     android:id="@+id/artworkDescriptionDetail"
                     android:layout_width="wrap_content"
@@ -65,6 +74,7 @@
                     android:layout_marginTop="50dp"
                     android:layout_marginBottom="10dp"
                     android:fontFamily="@font/playfair_display"
+                    android:textColor="@color/black"
                     android:gravity="center"/>
 
             </LinearLayout>
