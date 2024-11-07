@@ -24,11 +24,10 @@ public class ArtworksDatabase extends SQLiteOpenHelper {
 
     // singleton pattern to have the same database across the whole app
     private static ArtworksDatabase instance;
-    private SQLiteDatabase db;
 
     private ArtworksDatabase(@Nullable Context context) {
-        super(context.getApplicationContext(), DATABASE_NAME, null, DATABASE_VERSION);
-        db = this.getWritableDatabase();
+        super(Objects.requireNonNull(context).getApplicationContext(), DATABASE_NAME, null, DATABASE_VERSION);
+        this.getWritableDatabase(); // get the database instance
         File dbFile = context.getDatabasePath(DATABASE_NAME);
         String path = dbFile.getAbsolutePath();
         Log.d("Database Path", path);
@@ -144,10 +143,8 @@ public class ArtworksDatabase extends SQLiteOpenHelper {
     public Artwork getArtwork(String title, String artist, Context context) {
         SQLiteDatabase db = this.getReadableDatabase();
         Artwork artwork = null;
-        Cursor cursor = null;
 
-        try {
-            cursor = db.rawQuery("SELECT * FROM artworks WHERE title = ? AND artist = ?", new String[]{title, artist});
+        try (Cursor cursor = db.rawQuery("SELECT * FROM artworks WHERE title = ? AND artist = ?", new String[]{title, artist})) {
 
             if (cursor != null && cursor.moveToFirst()) {
                 artwork = new Artwork(-1, null, null, null,
@@ -165,23 +162,15 @@ public class ArtworksDatabase extends SQLiteOpenHelper {
             }
         } catch (Exception e) {
             Log.e("DatabaseError", "Error retrieving artwork: " + e.getMessage());
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
         }
-        if (artwork != null)
-            return artwork;
-        return null;
+        return artwork;
     }
 
     public Artwork getArtwork(int id, Context context) {
         SQLiteDatabase db = this.getReadableDatabase();
         Artwork artwork = null;
-        Cursor cursor = null;
 
-        try {
-            cursor = db.rawQuery("SELECT * FROM artworks WHERE id = ?", new String[]{String.valueOf(id)});
+        try (Cursor cursor = db.rawQuery("SELECT * FROM artworks WHERE id = ?", new String[]{String.valueOf(id)})) {
 
             if (cursor != null && cursor.moveToFirst()) {
                 artwork = new Artwork(-1, null, null, null,
@@ -199,10 +188,6 @@ public class ArtworksDatabase extends SQLiteOpenHelper {
             }
         } catch (Exception e) {
             Log.e("DatabaseError", "Error retrieving artwork: " + e.getMessage());
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
         }
         return artwork;
     }

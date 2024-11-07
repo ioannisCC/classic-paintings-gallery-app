@@ -25,11 +25,7 @@ import HelperClasses.HomeAdapter.ArtworksDatabase;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
-    private ArtworksDatabase artworksDatabase;
     List<Artwork> artworks;
-
-
-    // variables
     Animation topAnim, bottomAnim;
     ImageView image;
     TextView slogan;
@@ -60,9 +56,11 @@ public class SplashActivity extends AppCompatActivity {
         image.setAnimation(topAnim);
         slogan.setAnimation(bottomAnim);
 
-        artworksDatabase = ArtworksDatabase.getInstance(this);
+        // get the instance of the database
+        ArtworksDatabase artworksDatabase = ArtworksDatabase.getInstance(this);
         artworks = artworksDatabase.getAllArtworks(this);
 
+        // inflate the database if empty, if not continue
         if (artworks != null && !artworks.isEmpty()) {
             Log.d("Splash Screen", "artworks not null neither empty");
         } else {
@@ -146,9 +144,7 @@ public class SplashActivity extends AppCompatActivity {
             for (Artwork artwork : artworks) {
                 artworksDatabase.addArtwork(artwork, this);
             }
-
             Log.d("Creation of database Splash Screen", "Artworks added to database");
-
         }
 
         // go to next screen
@@ -161,18 +157,17 @@ public class SplashActivity extends AppCompatActivity {
                     Artwork[] artworksArray = new Artwork[artworks.size()];
                     artworks.toArray(artworksArray);
                     intent.putExtra("artworks_array", artworksArray);
+
                     Log.d("SplashActivity", "Artworks size: " + artworks.size());
                     Log.d("SplashActivity", "Artworks array size: " + artworksArray.length);
                 } else {
                     intent.putExtra("artworks_array", new Artwork[0]);
+
                     Log.d("SplashActivity", "Artworks array size: No size");
-
                 }
-
                 startActivity(intent);
                 finish();
             }
         }, SPLASH_SCREEN);
-
     }
 }

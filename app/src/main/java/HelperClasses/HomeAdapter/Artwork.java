@@ -3,6 +3,7 @@ package HelperClasses.HomeAdapter;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+// artwork needs to be Parcelable so its' objects can be passed fom an intent to another
 public class Artwork implements Parcelable {
 
     private int imageResId;
@@ -29,7 +30,6 @@ public class Artwork implements Parcelable {
         this.location = location;
     }
 
-    // Getter methods
     public int getImageResId() {
         return imageResId;
     }
@@ -66,7 +66,6 @@ public class Artwork implements Parcelable {
         return location;
     }
 
-    // Setter methods
     public void setTitle(String title) {
         this.title = title;
     }
@@ -103,7 +102,7 @@ public class Artwork implements Parcelable {
         this.imageResId = imageResId;
     }
 
-    // Parcelable implementation
+    // parcelable implementation
     protected Artwork(Parcel in) {
         imageResId = in.readInt();
         title = in.readString();

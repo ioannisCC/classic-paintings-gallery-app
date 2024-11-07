@@ -26,14 +26,6 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.Featur
         this.context = context;
     }
 
-    public ArrayList<Artwork> getArtworks() {
-        return artworks;
-    }
-
-    public void setArtworks(ArrayList<Artwork> artworks) {
-        this.artworks = artworks;
-    }
-
     // put the card on the recycler view
     @NonNull
     @Override
