@@ -25,10 +25,7 @@ import HelperClasses.HomeAdapter.ArtworksDatabase;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
-    List<Artwork> artworks;
-    Animation topAnim, bottomAnim;
-    ImageView image;
-    TextView slogan;
+    private List<Artwork> artworks;
 
     private static final int SPLASH_SCREEN = 5000;
 
@@ -45,12 +42,12 @@ public class SplashActivity extends AppCompatActivity {
         });
 
         // start screen animations
-        topAnim = AnimationUtils.loadAnimation(this, R.anim.top_animation);
-        bottomAnim = AnimationUtils.loadAnimation(this, R.anim.bottom_anim);
+        Animation topAnim = AnimationUtils.loadAnimation(this, R.anim.top_animation);
+        Animation bottomAnim = AnimationUtils.loadAnimation(this, R.anim.bottom_anim);
 
         // hooks
-        image = findViewById(R.id.logo);
-        slogan = findViewById(R.id.slogan);
+        ImageView image = findViewById(R.id.logo);
+        TextView slogan = findViewById(R.id.slogan);
 
         // assign animations
         image.setAnimation(topAnim);
@@ -85,7 +82,8 @@ public class SplashActivity extends AppCompatActivity {
                     getString(R.string.the_last_supper_title),
                     getString(R.string.the_last_supper_description), getString(R.string.leonardo_da_vinci),
                     "1495–1498", getString(R.string.tempera_on_gesso_pitch_mastic), " 460 cm × 880 cm ",
-                    getString(R.string.high_art_movement) + " " + getString(R.string.italian) + " " + getString(R.string.renaissance),
+                    getString(R.string.high_art_movement) + " " + getString(R.string.italian)
+                            + " " + getString(R.string.renaissance),
                     getString(R.string.santa_maria_delle_grazie_milan_italy)));
 
             artworks.add(new Artwork(R.drawable.impression_sunrise,
@@ -107,7 +105,8 @@ public class SplashActivity extends AppCompatActivity {
                     getString(R.string.around_the_neighborhood_description),
                     getString(R.string.gabriel_bodnariu), "2023",
                     getString(R.string.oil_on_canvas), " 150 cm x 150 cm ",
-                    getString(R.string.expressionism) + ", " + getString(R.string.conceptual) + ", " + getString(R.string.surrealism),
+                    getString(R.string.expressionism) + ", " + getString(R.string.conceptual)
+                            + ", " + getString(R.string.surrealism),
                     getString(R.string.not_applicable)));
 
             artworks.add(new Artwork(R.drawable.birth_of_venus,
@@ -138,7 +137,8 @@ public class SplashActivity extends AppCompatActivity {
                     getString(R.string.napoleon_crossing_alps_description),
                     getString(R.string.jacques_louis_david), "1801",
                     getString(R.string.oil_on_canvas), " 261 cm × 221 cm ",
-                    getString(R.string.neoclassical) + "/" + getString(R.string.contemporary) + " " + getString(R.string.portraiture),
+                    getString(R.string.neoclassical) + "/" + getString(R.string.contemporary)
+                            + " " + getString(R.string.portraiture),
                     getString(R.string.chateau_de_malmaison_rueil_malmaison)));
 
             for (Artwork artwork : artworks) {

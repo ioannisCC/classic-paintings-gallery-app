@@ -16,7 +16,6 @@ public class Artwork implements Parcelable {
     private String artMovement;
     private String location;
 
-    // Constructor
     public Artwork(int imageResId, String title, String description, String artist, String year,
                    String medium, String dimensions, String artMovement, String location) {
         this.imageResId = imageResId;

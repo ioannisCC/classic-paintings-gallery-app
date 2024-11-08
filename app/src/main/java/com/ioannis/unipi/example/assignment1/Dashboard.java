@@ -30,16 +30,16 @@ import HelperClasses.HomeAdapter.FeaturedAdapter;
 
 public class Dashboard extends AppCompatActivity {
 
-    List<Artwork> artworks;
-    RecyclerView featuredRecycler;
-    RecyclerView categoriesRecycler;
-    RecyclerView.Adapter adapter; // adapter for featured and categories recycler views
+    private List<Artwork> artworks;
+    private RecyclerView featuredRecycler;
+    private RecyclerView categoriesRecycler;
+    private RecyclerView.Adapter adapter; // adapter for featured and categories recycler views
     private LinearLayout cardsContainer; // container for popular cards
-    MediaPlayer mediaPlayer;
-    ImageView soundToggleIcon;
+    private MediaPlayer mediaPlayer;
+    private ImageView soundToggleIcon;
 
     // for the new screen to know where the click came from 0 for featured, 1 for popular, 2 for categories (when SharedPreferences where used)
-    int type;
+    private int type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,15 +144,15 @@ public class Dashboard extends AppCompatActivity {
 
         ArrayList<CategoriesHelperClass> categories = new ArrayList<>();
         categories.add(new CategoriesHelperClass(R.drawable.start,
-                "@strings/category", "Category1"));
+                getString(R.string.category), "Category1"));
         categories.add(new CategoriesHelperClass(R.drawable.start,
-                "@strings/category", "Category2"));
+                getString(R.string.category), "Category2"));
         categories.add(new CategoriesHelperClass(R.drawable.start,
-                "@strings/category", "Category3"));
+                getString(R.string.category), "Category3"));
         categories.add(new CategoriesHelperClass(R.drawable.start,
-                "@strings/category", "Category4"));
+                getString(R.string.category), "Category4"));
         categories.add(new CategoriesHelperClass(R.drawable.start,
-                "@strings/category", "Category5"));
+                getString(R.string.category), "Category5"));
 
         adapter = new CategoriesAdapter((categories));
         categoriesRecycler.setAdapter(adapter);

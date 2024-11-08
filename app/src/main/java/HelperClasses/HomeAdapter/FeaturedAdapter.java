@@ -18,9 +18,9 @@ import java.util.ArrayList;
 // bridge between values and design
 public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.FeaturedViewHolder> {
 
-    ArrayList<Artwork> artworks;
-    Context context;
-    int type = 0;
+    private ArrayList<Artwork> artworks;
+    private Context context;
+    private final int type = 0;
 
     public FeaturedAdapter(ArrayList<Artwork> artworks, Context context) {
         this.artworks = artworks;

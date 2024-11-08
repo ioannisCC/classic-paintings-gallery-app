@@ -93,6 +93,7 @@ public class ArtworksDatabase extends SQLiteOpenHelper {
         }
     }
 
+    // gather all the values that will be added together
     @NonNull
     private static ContentValues getContentValues(Artwork artwork) {
         ContentValues values = new ContentValues();
@@ -140,6 +141,7 @@ public class ArtworksDatabase extends SQLiteOpenHelper {
         return artworks;
     }
 
+    // retrieve artwork by title, artist
     public Artwork getArtwork(String title, String artist, Context context) {
         SQLiteDatabase db = this.getReadableDatabase();
         Artwork artwork = null;
@@ -166,6 +168,7 @@ public class ArtworksDatabase extends SQLiteOpenHelper {
         return artwork;
     }
 
+    // retrieve artwork by id
     public Artwork getArtwork(int id, Context context) {
         SQLiteDatabase db = this.getReadableDatabase();
         Artwork artwork = null;

@@ -21,15 +21,10 @@ import jp.wasabeef.glide.transformations.BlurTransformation;
 
 public class ArtDetailActivity extends AppCompatActivity {
 
-//    SharedPreferences sharedPreferences;
-    private ArtworksDatabase artworksDatabase;
-    ImageView artworkImage, backgroundImage, glassBackground;
-    TextView artworkTitle, artworkDescription;
-    Animation topAnimation, bottomAnimation, scaleInAnimation, scaleOutAnimation;
-
-    String title, description, artist, year, medium, dimensions, art_movement, location;
-    int imageResId;
-
+    private ImageView artworkImage;
+    private ImageView glassBackground;
+    private TextView artworkTitle, artworkDescription;
+    private Animation scaleOutAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +35,14 @@ public class ArtDetailActivity extends AppCompatActivity {
 //        sharedPreferences = getSharedPreferences(getString(R.string.paintings_preferences), MODE_PRIVATE);
 
         // database
-        artworksDatabase = ArtworksDatabase.getInstance(this);
+        //    SharedPreferences sharedPreferences;
+        ArtworksDatabase artworksDatabase = ArtworksDatabase.getInstance(this);
 
         // hooks
         artworkImage = findViewById(R.id.artworkImageDetail);
         artworkTitle = findViewById(R.id.artworkTitleDetail);
         artworkDescription = findViewById(R.id.artworkDescriptionDetail);
-        backgroundImage = findViewById(R.id.backgroundImage);
+        ImageView backgroundImage = findViewById(R.id.backgroundImage);
 //        glassBackground = findViewById(R.id.glassBackground); // to do
 
         int artworkIndex = getIntent().getIntExtra(getString(R.string.index), -1);
@@ -54,21 +50,22 @@ public class ArtDetailActivity extends AppCompatActivity {
 
         // retrieve artwork details using the index
         if (artworkIndex != -1 && artworkType != -1) {
-            Artwork artwork = artworksDatabase.getArtwork(artworkIndex+1, this);
+            Artwork artwork = artworksDatabase.getArtwork(artworkIndex+1, this); // +1 so that indexing works
 
             // set the retrieved data to the views
             artworkTitle.setText(artwork.getTitle());
             artworkDescription.setText(artwork.getDescription());
             artworkImage.setImageResource(artwork.getImageResId());
+            // set a blurred version of the artwork as the background with Glide
             Glide.with(this).load(artwork.getImageResId())
                     .apply(RequestOptions.bitmapTransform(new BlurTransformation(20, 30)))
                     .into(backgroundImage);
         }
 
         // start screen animations
-        topAnimation = AnimationUtils.loadAnimation(this, R.anim.top_animation);
-        bottomAnimation = AnimationUtils.loadAnimation(this, R.anim.bottom_anim);
-        scaleInAnimation = AnimationUtils.loadAnimation(this, R.anim.scale_in);
+        Animation topAnimation = AnimationUtils.loadAnimation(this, R.anim.top_animation);
+        Animation bottomAnimation = AnimationUtils.loadAnimation(this, R.anim.bottom_anim);
+        Animation scaleInAnimation = AnimationUtils.loadAnimation(this, R.anim.scale_in);
         scaleOutAnimation = AnimationUtils.loadAnimation(this, R.anim.scale_out);
 
         // start animations
@@ -79,6 +76,7 @@ public class ArtDetailActivity extends AppCompatActivity {
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
+                // animation
                 artworkImage.startAnimation(scaleOutAnimation);
                 finish();
             }
