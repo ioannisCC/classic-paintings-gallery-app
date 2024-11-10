@@ -52,6 +52,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="50dp"
                 android:orientation="vertical"
                 android:padding="16dp"
                 tools:ignore="UselessParent">
@@ -64,6 +65,17 @@
 <!--                    android:scaleType="centerCrop"-->
 <!--                    android:background="@drawable/glass" />-->
 
+                <ImageView
+                    android:id="@+id/tts"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentTop="false"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="16dp"
+                    android:layout_marginTop="20dp"
+                    android:onClick="ttsInit"
+                    android:src="@drawable/tts" />
+
                 <TextView
                     android:id="@+id/artworkDescriptionDetail"
                     android:layout_width="wrap_content"
@@ -71,7 +83,6 @@
                     android:textSize="16sp"
                     android:paddingTop="8dp"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="50dp"
                     android:layout_marginBottom="10dp"
                     android:fontFamily="@font/playfair_display"
                     android:textColor="@color/black"
