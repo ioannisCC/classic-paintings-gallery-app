@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "296145816049",
+    "project_id": "gallery-app-android-studio",
+    "storage_bucket": "gallery-app-android-studio.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:296145816049:android:653e33eecf4685a4b81c50",
+        "android_client_info": {
+          "package_name": "com.ioannis.unipi.example.assignment1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtMHp6fl0f_79s3Rp4olt15hf4RMSdfLo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
