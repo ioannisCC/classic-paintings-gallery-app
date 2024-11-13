@@ -9,14 +9,6 @@
     android:background="@color/background">
 <!-- coordinator layout so the floating button works -->
 
-    <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-        tools:ignore="UselessLeaf">
-
-    </RelativeLayout>
-
 
 <!--    to scroll-->
     <ScrollView

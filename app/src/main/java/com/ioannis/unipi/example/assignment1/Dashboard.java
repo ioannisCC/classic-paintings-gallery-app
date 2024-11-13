@@ -126,7 +126,6 @@ public class Dashboard extends AppCompatActivity {
     private void categoriesRecycler() {
 
         type = 2;
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
 
         categoriesRecycler.setHasFixedSize(true);
         categoriesRecycler.setLayoutManager(new LinearLayoutManager(this,
@@ -144,10 +143,8 @@ public class Dashboard extends AppCompatActivity {
         categories.add(new CategoriesHelperClass(R.drawable.start,
                 getString(R.string.category), "Category5"));
 
-        adapter = new CategoriesAdapter((categories));
+        adapter = new CategoriesAdapter(categories, this);
         categoriesRecycler.setAdapter(adapter);
-
-//        editor.apply();
 
     }
 

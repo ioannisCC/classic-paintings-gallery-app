@@ -11,8 +11,8 @@ android {
         applicationId = "com.ioannis.unipi.example.assignment1"
         minSdk = 31
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 2
+        versionName = "1.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         renderscriptTargetApi = 21

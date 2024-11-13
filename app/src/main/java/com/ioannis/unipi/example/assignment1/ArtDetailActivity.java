@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.util.Log;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
@@ -43,10 +45,8 @@ public class ArtDetailActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_art_detail);
 
-//        sharedPreferences = getSharedPreferences(getString(R.string.paintings_preferences), MODE_PRIVATE);
 
         // database
-        //    SharedPreferences sharedPreferences;
         ArtworksDatabase artworksDatabase = ArtworksDatabase.getInstance(this);
 
         // hooks
@@ -62,32 +62,8 @@ public class ArtDetailActivity extends AppCompatActivity {
         musicToggleButton.setOnClickListener(v -> MediaPlayerManager.toggleSound(musicToggleButton));
 
         int artworkIndex = getIntent().getIntExtra(getString(R.string.index), -1);
-        int artworkType = getIntent().getIntExtra(getString(R.string.type), -1);
+        int type = getIntent().getIntExtra(getString(R.string.type), -1);
 
-        // retrieve artwork details using the index
-        if (artworkIndex != -1 && artworkType != -1) {
-            Artwork artwork = artworksDatabase.getArtwork(artworkIndex+1, this); // +1 so that indexing works
-
-            // set the retrieved data to the views
-            artworkTitle.setText(artwork.getTitle());
-            artworkDescription.setText(artwork.getDescription());
-            artworkImage.setImageResource(artwork.getImageResId());
-            // set a blurred version of the artwork as the background with Glide
-            Glide.with(this).load(artwork.getImageResId())
-                    .apply(RequestOptions.bitmapTransform(new BlurTransformation(20, 30)))
-                    .into(backgroundImage);
-        }
-
-        // start screen animations
-        Animation topAnimation = AnimationUtils.loadAnimation(this, R.anim.top_animation);
-        Animation bottomAnimation = AnimationUtils.loadAnimation(this, R.anim.bottom_anim);
-        Animation scaleInAnimation = AnimationUtils.loadAnimation(this, R.anim.scale_in);
-        scaleOutAnimation = AnimationUtils.loadAnimation(this, R.anim.scale_out);
-
-        // start animations
-        artworkTitle.startAnimation(topAnimation);
-        artworkImage.startAnimation(scaleInAnimation);
-        artworkDescription.setAnimation(bottomAnimation);
 
         tts = new TTS(this, status -> {
             if (status == TextToSpeech.SUCCESS) {
@@ -135,12 +111,69 @@ public class ArtDetailActivity extends AppCompatActivity {
             }
         });
 
+        switch (type) {
+            case 0:
+            case 1:
+                Log.d("Switch case", "Featured or Popular");
+                // retrieve artwork details using the index
+                if (artworkIndex != -1) {
+                    Artwork artwork = artworksDatabase.getArtwork(artworkIndex+1, this); // +1 so that indexing works
+
+                    // set the retrieved data to the views
+                    artworkTitle.setText(artwork.getTitle());
+                    artworkDescription.setText(artwork.getDescription());
+                    artworkImage.setImageResource(artwork.getImageResId());
+//                    artworkImage.setAlpha(0.5f); for hovering
+                    // set a blurred version of the artwork as the background with Glide
+                    Glide.with(this).load(artwork.getImageResId())
+                            .apply(RequestOptions.bitmapTransform(new BlurTransformation(20, 30)))
+                            .into(backgroundImage);
+                }
+
+                // start screen animations
+                Animation topAnimation = AnimationUtils.loadAnimation(this, R.anim.top_animation);
+                Animation bottomAnimation = AnimationUtils.loadAnimation(this, R.anim.bottom_anim);
+                Animation scaleInAnimation = AnimationUtils.loadAnimation(this, R.anim.scale_in);
+                scaleOutAnimation = AnimationUtils.loadAnimation(this, R.anim.scale_out);
+
+                // start animations
+                artworkTitle.startAnimation(topAnimation);
+                artworkImage.startAnimation(scaleInAnimation);
+                artworkDescription.setAnimation(bottomAnimation);
+
+                break;
+            case 2:
+                Log.d("Switch case", "Categories");
+                FrameLayout frameLayout = findViewById(R.id.image_frame_layout);
+                frameLayout.setVisibility(View.GONE);
+                // retrieve artwork details using the index
+                if (artworkIndex != -1) {
+                    Artwork artwork = artworksDatabase.getArtwork(artworkIndex+1, this); // +1 so that indexing works
+
+                    // set the retrieved data to the views
+                    artworkTitle.setText(artwork.getArtMovement());
+                    artworkDescription.setText(artwork.getDescription());
+
+                    // set a blurred version of the artwork as the background with Glide
+                    Glide.with(this).load(artwork.getImageResId())
+                            .apply(RequestOptions.bitmapTransform(new BlurTransformation(20, 30)))
+                            .into(backgroundImage);
+                }
+
+                break;
+            default:
+                Log.d("Switch case","Invalid option selected (default)");
+                break;
+        }
+
         // custom back pressed behavior using the dispatcher
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                // animation
-                artworkImage.startAnimation(scaleOutAnimation);
+                if (!(type == 2)) {
+                    // animation
+                    artworkImage.startAnimation(scaleOutAnimation);
+                }
                 finish();
             }
         });
