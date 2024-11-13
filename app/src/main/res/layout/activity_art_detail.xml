@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,13 +13,13 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="100dp">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="100dp">
 
             <TextView
                 android:id="@+id/artworkTitleDetail"
@@ -55,7 +55,8 @@
                 android:layout_marginTop="50dp"
                 android:orientation="vertical"
                 android:padding="16dp"
-                tools:ignore="UselessParent">
+                tools:ignore="UselessParent"
+                android:paddingBottom="100dp">
 
 <!--to do-->
 <!--                <ImageView-->
@@ -67,14 +68,14 @@
 
                 <ImageView
                     android:id="@+id/tts"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:layout_alignParentTop="false"
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="16dp"
                     android:layout_marginTop="20dp"
                     android:onClick="ttsInit"
-                    android:src="@drawable/tts" />
+                    android:src="@drawable/tts_on" />
 
                 <TextView
                     android:id="@+id/artworkDescriptionDetail"
@@ -94,8 +95,20 @@
 
     </ScrollView>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/musicToggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/sound_on"
+        android:layout_gravity="end|bottom"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="60dp"
+        android:backgroundTint="@color/transparent"
+        android:backgroundTintMode="src_in"
+        android:elevation="0dp"
+        android:translationZ="0dp"/>
 
-    </FrameLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
 

@@ -13,6 +13,9 @@ public class TTS extends TextToSpeech {
         this.speak(text, TextToSpeech.QUEUE_FLUSH, null, null);
     }
 
+    public void stopSpeak () {
+        this.stop();
+    }
     public void shutdownTTS() {
         this.stop();
         this.shutdown();

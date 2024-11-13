@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,6 +20,8 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +29,7 @@ import HelperClasses.HomeAdapter.Artwork;
 import HelperClasses.HomeAdapter.CategoriesAdapter;
 import HelperClasses.HomeAdapter.CategoriesHelperClass;
 import HelperClasses.HomeAdapter.FeaturedAdapter;
+import HelperClasses.HomeAdapter.MediaPlayerManager;
 
 
 public class Dashboard extends AppCompatActivity {
@@ -35,8 +39,8 @@ public class Dashboard extends AppCompatActivity {
     private RecyclerView categoriesRecycler;
     private RecyclerView.Adapter adapter; // adapter for featured and categories recycler views
     private LinearLayout cardsContainer; // container for popular cards
-    private MediaPlayer mediaPlayer;
-    private ImageView soundToggleIcon;
+    private FloatingActionButton musicToggleButton;
+
 
     // for the new screen to know where the click came from 0 for featured, 1 for popular, 2 for categories (when SharedPreferences where used)
     private int type;
@@ -53,14 +57,13 @@ public class Dashboard extends AppCompatActivity {
         });
 
         // initialize the MediaPlayer
-        mediaPlayer = MediaPlayer.create(this, R.raw.beethoven_moonlight_sonata);
-        mediaPlayer.setLooping(true);
-        mediaPlayer.start();
+        MediaPlayerManager.initializeMediaPlayer(this, R.raw.beethoven_moonlight_sonata);
+        MediaPlayerManager.getMediaPlayer().start();
 
-        soundToggleIcon = findViewById(R.id.sound_toggle_icon);
+        musicToggleButton = findViewById(R.id.musicToggleButton);
 
         // set click listener on the icon
-        soundToggleIcon.setOnClickListener(v -> toggleSound());
+        musicToggleButton.setOnClickListener(v -> MediaPlayerManager.toggleSound(musicToggleButton));
 
         // make the array parcelable so it can be passed from an intent to another
         Parcelable[] parcelables = getIntent().getParcelableArrayExtra("artworks_array");
@@ -91,20 +94,7 @@ public class Dashboard extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mediaPlayer != null) {
-            mediaPlayer.release();
-            mediaPlayer = null;
-        }
-    }
-
-    private void toggleSound() {
-        if (mediaPlayer.isPlaying()) {
-            mediaPlayer.pause();
-            soundToggleIcon.setImageResource(R.drawable.sound_off);
-        } else {
-            mediaPlayer.start();
-            soundToggleIcon.setImageResource(R.drawable.sound_on);
-        }
+        MediaPlayerManager.releaseMedia();
     }
 
     private void featuredRecycler() {

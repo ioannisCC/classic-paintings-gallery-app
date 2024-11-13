@@ -5,4 +5,5 @@
     <color name="background">#FBFBF9</color>
     <color name="secondary">#F9E19B </color>
     <color name="third">#F3EAD3</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>
